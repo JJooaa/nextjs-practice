@@ -1,6 +1,15 @@
 .postListItem {
     width: auto;
-    height: auto;
+    min-height: 80px;
     background: whitesmoke;
     margin: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 10px;
+    list-style-type: none;
+    a {
+        font-size: 22px;
+        font-weight: bold;
+    }
 }

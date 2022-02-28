@@ -11,6 +11,9 @@ export default function Layout({ children }) {
                 <Link href="/posts">
                     <a>Posts</a>
                 </Link>
+                <Link href="/users">
+                    <a>Users</a>
+                </Link>
             </header>
             <main className={styles.main}>{children}</main>
         </>
