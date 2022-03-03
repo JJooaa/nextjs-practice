@@ -4,6 +4,7 @@ import Layout from "../../components/layout";
 import styles from "./posts.module.scss";
 import Link from "next/link";
 import { getAllPosts, getAllUsers } from "../../lib/posts";
+import { getSession, useSession } from "next-auth/react";
 
 export async function getStaticProps() {
     const posts = await getAllPosts();
@@ -17,6 +18,18 @@ export async function getStaticProps() {
 }
 
 export default function Posts({ posts, users }) {
+    const { data: session } = useSession();
+
+    if (!session) {
+        return (
+            <>
+                <Layout>
+                    <div>Cannot see this page without loggin in!</div>
+                </Layout>
+            </>
+        );
+    }
+
     return (
         <Layout>
             <Head>
@@ -34,7 +47,12 @@ export default function Posts({ posts, users }) {
                             <Link href={`/posts/${post.id}`} key={post.id}>
                                 <a>{post.title}</a>
                             </Link>
-                            <p>Written by: {name}</p>
+                            <p>
+                                Written by:{" "}
+                                <Link href={`/users/${post.userId}`}>
+                                    <a>{name}</a>
+                                </Link>
+                            </p>
                         </li>
                     );
                 })}

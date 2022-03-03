@@ -3,6 +3,7 @@ import Head from "next/head";
 import { getAllUsers } from "../../lib/posts";
 import Link from "next/link";
 import styles from "./users.module.scss";
+import { useSession } from "next-auth/react";
 
 export async function getStaticProps() {
     const users = await getAllUsers();
@@ -15,6 +16,16 @@ export async function getStaticProps() {
 }
 
 export default function Users({ users }) {
+    const { data: session } = useSession();
+    if (!session) {
+        return (
+            <>
+                <Layout>
+                    <div>Cant see users without loading in!</div>
+                </Layout>
+            </>
+        );
+    }
     return (
         <Layout>
             <Head>
