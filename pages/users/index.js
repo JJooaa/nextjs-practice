@@ -7,7 +7,6 @@ import { useSession } from "next-auth/react";
 
 export async function getStaticProps() {
     const users = await getAllUsers();
-
     return {
         props: {
             users,
